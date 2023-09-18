@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <style>
+        /* Add your CSS styles here */
+        /* Example: style the container div and image */
+        .container {
+            text-align: center;
+            margin-top: 20px;
+        }
+        img {
+            max-width: 200px;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img src="user_photo.jpg" alt="User Photo" id="user-photo">
+        <h2 id="user-name">User Name</h2>
+        <form id="message-form">
+            <label for="message">Message:</label>
+            <input type="text" id="message" name="message" placeholder="Enter your message" required>
+            <br>
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+
+    <!-- Include Firebase JavaScript SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.4.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.4.0/firebase-firestore.js"></script>
+    <script>
+        var firebaseConfig = {
+             apiKey: "AIzaSyBEtXBiFXnk3jPmb6wdfW4SOvMXJQIjCzg",
+  authDomain: "saraha-5e7fd.firebaseapp.com",
+  projectId: "saraha-5e7fd",
+  storageBucket: "saraha-5e7fd.appspot.com",
+  messagingSenderId: "942089850758",
+  appId: "1:942089850758:web:bc767461bc426a904e2607"
+        };
+
+        firebase.initializeApp(firebaseConfig);
+        var firestore = firebase.firestore();
+
+        // User ID to retrieve data for (e.g., "WXRbWaH3SnNlD7xUEoIy5PhQaIS2")
+        var userId = "WXRbWaH3SnNlD7xUEoIy5PhQaIS2"; // Replace with the actual user ID
+
+        // Reference to the user's document in the "users" collection
+        var userRef = firestore.collection('users').doc(userId);
+
+        // Add event listener for the message form submission
+        document.getElementById("message-form").addEventListener("submit", function (e) {
+            e.preventDefault(); // Prevent the form from submitting via page refresh
+
+            // Get the message from the input field
+            var message = document.getElementById("message").value;
+
+            // Store the message in Firestore under the "secrets" collection
+            var secretsRef = firestore.collection('secrets');
+            secretsRef.add({
+                userId: userId,
+                message: message,
+                timestamp: new Date()
+            })
+            .then(function(docRef) {
+                console.log("Message added with ID: ", docRef.id);
+                alert("Message sent!");
+                document.getElementById("message").value = ""; // Clear the input field
+            })
+            .catch(function(error) {
+                console.error("Error adding message: ", error);
+            });
+        });
+
+        // Retrieve user data
+        userRef.get()
+            .then(function(doc) {
+                if (doc.exists) {
+                    var userData = doc.data();
+                    var userName = userData.name;
+                    var photoUrl = userData.photoUrl;
+
+                    // Update the HTML elements with the user's name and photoUrl
+                    document.getElementById("user-name").textContent = userName;
+                    document.getElementById("user-photo").src = photoUrl;
+                } else {
+                    console.log("User data not found.");
+                }
+            })
+            .catch(function(error) {
+                console.error("Error retrieving user data: " + error);
+            });
+    </script>
+</body>
+</html>
