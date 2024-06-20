@@ -9,89 +9,55 @@
     body {
       margin: 0;
       overflow: hidden;
-      font-family: Arial, sans-serif;
+      background: url('https://github.com/samuelcust/flappy-bird-assets/blob/master/sprites/background-day.png?raw=true') no-repeat center center fixed;
+      /* Replace with your background image URL */
+      background-size: cover;
     }
 
     canvas {
       display: block;
     }
 
-    button {
+    .score-container {
       position: absolute;
-      left: 50%;
-      transform: translateX(-50%);
-      padding: 10px 20px;
-      font-size: 20px;
-      cursor: pointer;
+      top: 20px;
+      right: 20px;
+      display: flex;
+      align-items: center;
     }
 
-    #startButton {
-      top: 50%;
+    .score-digit {
+      width: 30px;
+      /* Adjust as needed based on your number images */
+      height: 40px;
+      /* Adjust as needed based on your number images */
+      margin-left: 5px;
+      /* Adjust as needed for spacing */
     }
 
-    #settingsButton {
+    .ground {
       position: absolute;
-      top: calc(50% + 70px);
-      /* Adjust top position based on your layout */
-      left: 50%;
-      transform: translateX(-50%);
-      font-size: 16px;
-      padding: 5px 10px;
-      cursor: pointer;
-      display: none;
-      /* Initially hide settings button */
-    }
-
-    #retryButton,
-    #menuButton {
-      top: 60%;
-      display: none;
-    }
-
-    #menuButton {
-      top: 70%;
-    }
-
-    #settingsDialog {
-      display: none;
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background: #fff;
-      border: 1px solid #ccc;
-      padding: 20px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-      z-index: 1000;
-    }
-
-    .settings-dialog label {
-      display: block;
-      margin-bottom: 10px;
-    }
-
-    .settings-dialog button {
-      margin-top: 10px;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      height: 100px;
+      /* Adjust the height of the ground */
+      background: url('ground.png') repeat-x;
+      /* Replace with your ground image URL */
     }
   </style>
 </head>
 
 <body>
+  <div class="ground" id="ground"></div>
+
+  <div class="score-container" id="scoreContainer"></div>
+
   <canvas id="gameCanvas"></canvas>
-  <button id="startButton">Start</button>
-  <button id="retryButton">Retry</button>
-  <button id="menuButton">Main Menu</button>
-  <button id="settingsButton">Settings</button>
-  <div class="settings-dialog" id="settingsDialog">
-    <label>
-      <input type="checkbox" id="toggleSounds" checked> Enable Sounds
-    </label>
-    <label>
-      Volume:
-      <input type="range" id="volumeControl" min="0" max="1" step="0.1" value="1">
-    </label>
-    <button id="closeSettings">Close</button>
-  </div>
+  <audio id="flapSound" src="https://github.com/samuelcust/flappy-bird-assets/raw/master/audio/wing.wav"></audio> <!-- Replace with your flap sound URL -->
+  <audio id="hitSound" src="https://github.com/samuelcust/flappy-bird-assets/raw/master/audio/hit.wav"></audio> <!-- Replace with your hit sound URL -->
+  <audio id="scoreSound" src="https://github.com/samuelcust/flappy-bird-assets/raw/master/audio/point.wav"></audio> <!-- Replace with your score sound URL -->
+  <audio id="dieSound" src="https://github.com/samuelcust/flappy-bird-assets/raw/master/audio/die.wav"></audio> <!-- Replace with your die sound URL -->
   <script src="game.js"></script>
 </body>
 
