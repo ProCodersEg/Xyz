@@ -44,7 +44,7 @@ const bird = {
   size: 20,
   gravity: 0.6,
   lift: -10,
-  velocity: 0,
+  velocity: 0
 };
 
 const pipes = [];
@@ -72,10 +72,22 @@ function drawBird() {
 function drawPipes() {
   pipes.forEach((pipe) => {
     // Draw top pipe
-    ctx.drawImage(pipeImgTop, pipe.x, pipe.top - pipeImgTop.height, pipeWidth, pipeImgTop.height);
+    ctx.drawImage(
+      pipeImgTop,
+      pipe.x,
+      pipe.top - pipeImgTop.height,
+      pipeWidth,
+      pipeImgTop.height
+    );
 
     // Draw bottom pipe
-    ctx.drawImage(pipeImgBottom, pipe.x, pipe.bottom, pipeWidth, pipeImgBottom.height);
+    ctx.drawImage(
+      pipeImgBottom,
+      pipe.x,
+      pipe.bottom,
+      pipeWidth,
+      pipeImgBottom.height
+    );
   });
 }
 
@@ -108,8 +120,7 @@ function checkCollision() {
     if (
       bird.x + bird.size > pipe.x &&
       bird.x - bird.size < pipe.x + pipeWidth &&
-      (bird.y - bird.size < pipe.top ||
-        bird.y + bird.size > pipe.bottom)
+      (bird.y - bird.size < pipe.top || bird.y + bird.size > pipe.bottom)
     ) {
       die();
     }
@@ -141,6 +152,12 @@ function drawScore() {
   const scoreStr = score.toString();
   const scoreContainer = document.getElementById("scoreContainer");
   scoreContainer.innerHTML = "";
+
+  // Calculate position for score container center score at top
+  const scoreX = width / 2 - (scoreStr.length * 40) / 2; // Adjust positioning as needed
+  scoreContainer.style.left = `${scoreX}px`;
+  scoreContainer.style.top = "20px"; // Adjust vertical positioning as needed
+  //end
 
   for (let i = 0; i < scoreStr.length; i++) {
     const digit = scoreStr.charAt(i);
