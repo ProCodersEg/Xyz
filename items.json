@@ -1,0 +1,25 @@
+[
+  {
+    "title": "it1",
+    "price": "26 Coins",
+    "imageUrl": "g1.webp"
+  },
+
+  {
+    "title": "it2",
+    "price": "16 Coins",
+    "imageUrl": "g2.png"
+  },
+
+  {
+    "title": "it3",
+    "price": "26 Coins",
+    "imageUrl": "g4.png"
+  },
+
+  {
+    "title": "it4",
+    "price": "30000 Coins",
+    "imageUrl": "g4.png"
+  }
+]
